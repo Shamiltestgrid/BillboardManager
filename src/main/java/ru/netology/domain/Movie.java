@@ -14,6 +14,5 @@ public class Movie {
     private String imageUrl;
     private String genre;
 
-    public Movie(int i, String bladshot, String s, String actionMovie) {
-    }
+    
 }
