@@ -9,7 +9,7 @@ import ru.netology.domain.Movie;
 
 public class MovieManager {
     private Movie[] movies = new Movie[0];
-    private int defaultMovieLength = 10;
+    private int showMax = 10;
     MovieManager() {
     }
     public MovieManager(int customMovieLength) {
