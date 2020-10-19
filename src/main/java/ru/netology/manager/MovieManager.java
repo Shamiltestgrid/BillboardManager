@@ -14,7 +14,7 @@ public class MovieManager {
     }
     public MovieManager(int customMovieLength) {
         if (customMovieLength > 0) {
-            defaultMovieLength = customMovieLength;
+            showMax = customMovieLength;
         }
     }
     public void addMovie(Movie movie) {
