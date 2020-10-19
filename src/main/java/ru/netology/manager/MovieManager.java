@@ -29,7 +29,7 @@ public class MovieManager {
     }
     public Movie[] getLastAdd() {
         int moviesLength = movies.length;
-        if (moviesLength < dshowMax) {
+        if (moviesLength < showMax) {
             showMax = moviesLength;
         }
         Movie[] customFilm = new Movie[showMax];
