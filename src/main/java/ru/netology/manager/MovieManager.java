@@ -32,7 +32,7 @@ public class MovieManager {
         if (moviesLength < defaultMovieLength) {
             defaultMovieLength = moviesLength;
         }
-        Movie[] customFilm = new Movie[defaultMovieLength];
+        Movie[] customFilm = new Movie[showMax];
         for (int i = 0; i < customFilm.length; i++) {
             int result = moviesLength - i - 1;
             customFilm[i] = movies[result];
