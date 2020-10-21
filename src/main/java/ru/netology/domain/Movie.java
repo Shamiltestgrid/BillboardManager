@@ -14,6 +14,6 @@ public class Movie {
     private String imageUrl;
     private String genre;
 
-public Movie(int i, String numberFive, String s, String horrors) {
+
     }
 }
