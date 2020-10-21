@@ -29,9 +29,6 @@ public class MovieManager {
     }
     public Movie[] getLastAdd() {
         int moviesLength = movies.length;
-        if (moviesLength < showMax) {
-            
-        }
         Movie[] customFilm = new Movie[showMax];
         for (int i = 0; i < customFilm.length; i++) {
             int result = moviesLength - i - 1;
