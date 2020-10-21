@@ -36,4 +36,5 @@ public class MovieManager {
         }
         return customFilm;
     }
+  }
 
