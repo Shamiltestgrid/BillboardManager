@@ -72,7 +72,7 @@ class MovieManagerTest {
 
     @Test
     void mustShowOverMax() {
-        MovieManager manager = new MovieManager(11);
+        MovieManager manager = new MovieManager(10);
         manager.addMovie(first);
         manager.addMovie(second);
         manager.addMovie(third);
