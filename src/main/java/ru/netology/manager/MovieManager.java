@@ -13,7 +13,7 @@ public class MovieManager {
     MovieManager() {
     }
     public MovieManager(int customMovieLength) {
-        if (customMovieLength > 0) {
+        if (customMovieLength == 0) {
             showMax = customMovieLength;
         }
     }
