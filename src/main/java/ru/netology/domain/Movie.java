@@ -1,3 +1,6 @@
+package ru.netology.domain;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,8 +13,4 @@ public class Movie {
     private String name;
     private String imageUrl;
     private String genre;
-
-
-    public Movie(int i, String gentlemen, String s, String actionMovie) {
-    }
 }
