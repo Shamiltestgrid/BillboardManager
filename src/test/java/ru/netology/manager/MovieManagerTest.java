@@ -72,7 +72,7 @@ class MovieManagerTest {
 
     @Test
     void mustShowOverMax() {
-        MovieManager manager = new MovieManager(11);
+        MovieManager manager = new MovieManager(10);
         manager.addMovie(first);
         manager.addMovie(second);
         manager.addMovie(third);
@@ -87,6 +87,9 @@ class MovieManagerTest {
         assertArrayEquals(expected, actual);
 
     }
-
+   @Test
+    void showMoreThanAll() {
+        Movie[] actual = manager.getLimited(10);
+        assertArrayEquals(expected, actual);
 
 }
