@@ -89,7 +89,7 @@ class MovieManagerTest {
     }
    @Test
     void showMoreThanAll() {
-        Movie[] actual = manager.getLimited(100);
+        Movie[] actual = manager.getLimited(10);
         assertArrayEquals(expected, actual);
 
 }
