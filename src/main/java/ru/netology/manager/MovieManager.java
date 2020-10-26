@@ -9,14 +9,22 @@ import ru.netology.domain.Movie;
 
 public class MovieManager {
     private Movie[] movies = new Movie[0];
-    private int showMax = 10;
+    private int defaultMovieLength = 10;
+
+
+
+
     MovieManager() {
+
     }
+
     public MovieManager(int customMovieLength) {
-        if (customMovieLength >= 0) {
-            showMax = customMovieLength;
+        if (customMovieLength > 0) {
+            defaultMovieLength = customMovieLength;
         }
+
     }
+
     public void addMovie(Movie movie) {
         int length = movies.length + 1;
         Movie[] tmp = new Movie[length];
@@ -26,15 +34,22 @@ public class MovieManager {
         int lastMovie = tmp.length - 1;
         tmp[lastMovie] = movie;
         movies = tmp;
+
     }
+
     public Movie[] getLastAdd() {
         int moviesLength = movies.length;
-        Movie[] customFilm = new Movie[showMax];
+        if (moviesLength < defaultMovieLength) {
+            defaultMovieLength = moviesLength;
+        }
+        Movie[] customFilm = new Movie[defaultMovieLength];
         for (int i = 0; i < customFilm.length; i++) {
             int result = moviesLength - i - 1;
             customFilm[i] = movies[result];
+
         }
         return customFilm;
     }
-  }
 
+
+}
