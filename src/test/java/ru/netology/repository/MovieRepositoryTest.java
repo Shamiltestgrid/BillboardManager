@@ -1,96 +1,86 @@
-package ru.netology.repository;
+package ru.netology.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Movie;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class AfishaRepositoryTest {
-    private AfishaRepository repository = new AfishaRepository();
-
-    private Movie first = new Movie(1, "Bladshot", "http://", "actionMovie");
-    private Movie second = new Movie(2, "Ahead", "http://", "cartoon");
-    private Movie third = new Movie(3, "HotelBelgrad", "http://", "comedy");
-    private Movie fourth = new Movie(4, "Gentlemen", "http://", "actionMovie");
-    private Movie fifth = new Movie(5, "InvisibleMan", "http://", "horrors");
-    private Movie sixth = new Movie(6, "Trolls", "http://", "cartoon");
-    private Movie seventh = new Movie(7, "NumberOne", "http://", "comedy");
-    private Movie eighth = new Movie(8, "NumberTwo", "http://", "actionMovie");
-    private Movie ninth = new Movie(9, "NumberThree", "http://", "actionMovie");
-    private Movie tenth = new Movie(10, "NumberFour", "http://", "actionMovie");
+public class MovieManagerTest {
+    private MovieManager manager = new MovieManager();
+    private Movie movieToAdd = new Movie(100, "T100", "nonsence");
+    private Movie[] expected;
 
     @BeforeEach
     void setUp() {
-        repository.save(first);
-        repository.save(second);
-        repository.save(third);
-        repository.save(fourth);
-        repository.save(fifth);
-        repository.save(sixth);
-        repository.save(seventh);
-        repository.save(eighth);
-        repository.save(ninth);
-        repository.save(tenth);
-
-    }
-
-
-    @Test
-    void mustFindAll() {
-        repository.findAll();
-        Movie[] actual = repository.findAll();
-        Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth,};
-        assertArrayEquals(expected, actual);
-
-    }
-
-    @Test
-    void mustSave() {
-        Movie movieToAdd = new Movie(12, "NumberSix", "http://", "horrors");
-        repository.save(movieToAdd);
-        Movie[] actual = repository.findAll();
-        Movie[] expected = {first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth,
-                new Movie(12, "NumberSix", "http://", "horrors")
-
+        manager.addMovie(movieToAdd);
+        expected = new Movie[]{
+                new Movie(100, "T100", "nonsence"),
+                new Movie(14, "Terminator14", "nonsence"),
+                new Movie(13, "Terminator13", "nonsence"),
+                new Movie(12, "Terminator12", "nonsence"),
+                new Movie(11, "Terminator11", "nonsence"),
+                new Movie(10, "Terminator10", "nonsence"),
+                new Movie(9, "Terminator9", "nonsence"),
+                new Movie(8, "Terminator8", "nonsence"),
+                new Movie(7, "Terminator7", "nonsence"),
+                new Movie(6, "Terminator6", "nonsence")
         };
+    }
 
+    @Test
+    public void shouldGetNoveltiesNegative() {
+        Movie[] actual = manager.getLimited(-25);
         assertArrayEquals(expected, actual);
-
     }
 
     @Test
-    void shouldFindById() {
-        Movie actual = repository.findById(5);
-        Movie expected = new Movie(5, "InvisibleMan", "http://", "horrors");
-        assertEquals(expected, actual);
+    public void shouldGetNoveltiesMoreThanAll() {
+        Movie[] actual = manager.getLimited(100);
+        assertArrayEquals(expected, actual);
     }
 
     @Test
-    void shouldFindInvalidId() {
-        Movie actual = repository.findById(100);
-        Movie expected = null;
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    void shouldRemoveById() {
-        repository.removeById(5);
-        Movie[] actual = repository.findAll();
-        Movie[] expected = new Movie[]{first, second, third, fourth, sixth, seventh, eighth, ninth, tenth,
+    public void shouldGetNoveltiesPositive() {
+        Movie[] actual = manager.getLimited(6);
+        Movie[] expected = {
+                new Movie(100, "T100", "nonsence"),
+                new Movie(14, "Terminator14", "nonsence"),
+                new Movie(13, "Terminator13", "nonsence"),
+                new Movie(12, "Terminator12", "nonsence"),
+                new Movie(11, "Terminator11", "nonsence"),
+                new Movie(10, "Terminator10", "nonsence")
         };
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    void shouldRemoveAll() {
-        repository.removeAll();
-        Movie[] actual = repository.findAll();
-        Movie[] expected = new Movie[]{};
+    public void shouldGetNoveltiesBetweenSizeAndDefault() {
+        Movie[] actual = manager.getLimited(11);
         assertArrayEquals(expected, actual);
     }
 
-
+    @Test
+    public void shouldGetAll() {
+        Movie[] actual = manager.getAll();
+        Movie[] expected = {
+                new Movie(100, "T100", "nonsence"),
+                new Movie(14, "Terminator14", "nonsence"),
+                new Movie(13, "Terminator13", "nonsence"),
+                new Movie(12, "Terminator12", "nonsence"),
+                new Movie(11, "Terminator11", "nonsence"),
+                new Movie(10, "Terminator10", "nonsence"),
+                new Movie(9, "Terminator9", "nonsence"),
+                new Movie(8, "Terminator8", "nonsence"),
+                new Movie(7, "Terminator7", "nonsence"),
+                new Movie(6, "Terminator6", "nonsence"),
+                new Movie(5, "Terminator5", "nonsence"),
+                new Movie(4, "Terminator4", "farce"),
+                new Movie(3, "Terminator3", "tragedy"),
+                new Movie(2, "Terminator2", "sci-fi"),
+                new Movie(1, "Terminator1", "sci-fi"),
+        };
+        assertArrayEquals(expected, actual);
+    }
 }
 
