@@ -4,63 +4,49 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.netology.domain.Movie;
-import ru.netology.repository.AfishaRepository;
+import ru.netology.repository.MovieRepository;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class AfishaManager {
-
-    private AfishaRepository repository;
-    private int defaultMovieLength = 10;
-    private int customMovieLength;
-
-
-    public AfishaManager(AfishaRepository repository, int customMovieLength) {
-        this.repository = repository;
-        this.customMovieLength = customMovieLength;
-    }
-
-    public AfishaManager(AfishaRepository repository) {
-        this.repository = repository;
-    }
-
-
-    public void setCustomMovieLength(int customMovieLength) {
-        this.customMovieLength = customMovieLength;
-    }
+@Data
+public class MovieManager {
+    private MovieRepository repository = new MovieRepository();
 
     public void addMovie(Movie movie) {
         repository.save(movie);
     }
 
-
-    public Movie[] getAll() {
+    public Movie[] getLimited(int howManyMoviesToShow) {
         Movie[] movies = repository.findAll();
-        int length = movies.length;
-        if (customMovieLength <= 0) {
-            if (defaultMovieLength < length) {
-                length = defaultMovieLength;
-            }
-        } else {
-            if (customMovieLength < length) {
-                length = customMovieLength;
-            }
-
+        int moviesLength = movies.length;
+        int feedMax = 10;
+        if (howManyMoviesToShow <= 0 || howManyMoviesToShow > feedMax) {
+            howManyMoviesToShow = feedMax;
         }
-        Movie[] result = new Movie[length];
+        if (feedMax > moviesLength) {
+            feedMax = moviesLength;
+        }
+        if (howManyMoviesToShow <= feedMax) {
+            feedMax = howManyMoviesToShow;
+        } else {
+            feedMax = moviesLength;
+        }
+        Movie[] customMovie = new Movie[feedMax];
+        for (int current = 0; current < customMovie.length; current++) {
+            int result = moviesLength - current - 1;
+            customMovie[current] = movies[result];
+        }
+        return customMovie;
+    }
+
+    public Movie[] getAll(){
+        Movie[] movies = repository.findAll();
+        Movie[] result = new Movie[movies.length];
         for (int i = 0; i < result.length; i++) {
             int index = movies.length - i - 1;
             result[i] = movies[index];
         }
         return result;
     }
-
-
-    public Movie[] showAll() {
-        return repository.findAll();
-    }
-
-
 }
+
